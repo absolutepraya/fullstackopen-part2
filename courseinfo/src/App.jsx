@@ -1,51 +1,4 @@
-// Title ocmponent
-const Title = ({ title }) => <h1>{title}</h1>;
-
-// Header component
-const Header = ({ course }) => <h2>{course}</h2>;
-
-// Content component
-const Content = ({ parts }) => {
-	return (
-		<div>
-			{parts.map((part) => (
-				<Part
-					key={part.id}
-					part={part.name}
-					exercises={part.exercises}
-				/>
-			))}
-		</div>
-	);
-};
-
-// Part component
-const Part = ({ part, exercises }) => (
-	<p>
-		{part} {exercises}
-	</p>
-);
-
-// Total component
-const Total = ({ parts }) => {
-	const total = parts.reduce((sum, part) => sum + part.exercises, 0);
-	return (
-		<p>
-			<strong>Total of {total} exercises</strong>
-		</p>
-	);
-};
-
-// Course component
-const Course = ({ course }) => {
-	return (
-		<div>
-			<Header course={course.name} />
-			<Content parts={course.parts} />
-			<Total parts={course.parts} />
-		</div>
-	);
-};
+import Course from './components/Course';
 
 const App = () => {
 	const courses = [
@@ -95,7 +48,7 @@ const App = () => {
 
 	return (
 		<div>
-			<Title title="Web development curriculum" />
+			<h1>Web development curriculum</h1>
 			{courses.map((course) => (
 				<Course key={course.id} course={course} />
 			))}
