@@ -41,6 +41,7 @@ const PersonForm = ({
 					placeholder='input number here'
 				/>
 			</div>
+			<br></br>
 			<div>
 				<button type='submit'>add</button>
 			</div>
