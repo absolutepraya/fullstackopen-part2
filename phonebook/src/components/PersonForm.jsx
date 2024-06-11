@@ -11,6 +11,11 @@ const PersonForm = ({
 	// add person to the phonebook
 	const addPerson = (e) => {
 		e.preventDefault();
+		// extra: check if name or number is empty
+		if (newName === '' || newNumber === '') {
+			alert('name or number is empty');
+			return;
+		}
 		// check if person already exists
 		if (
 			persons.find(
