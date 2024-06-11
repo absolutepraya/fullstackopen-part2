@@ -6,12 +6,26 @@ const Persons = ({ persons, filter, setPersons }) => {
 		const filteredPerson = persons.filter((person) =>
 			person.name.toLowerCase().includes(filter.toLowerCase())
 		);
-		return filteredPerson.map((person) => (
-			<div key={person.name}>
-				{person.name} {person.number + ' '}
-				<button onClick={() => deletePerson(person.id)}>delete</button>
-			</div>
-		));
+        return (
+            <table>
+                <tbody>
+                    {filteredPerson.map((person) => (
+                        <tr key={person.name}>
+                            <td>{person.name}</td>
+                            <td>{person.number}</td>
+                            <td>
+                                <button
+                                    onClick={() => deletePerson(person.id)}
+                                    className='delete-btn'
+                                >
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        );
 	};
 
 	// delete person

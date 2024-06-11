@@ -5,18 +5,20 @@ import phonebookSerice from './services/phonebookService.js';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
+import Notification from './components/Notification';
 
 const App = () => {
-	const [persons, setPersons] = useState([]);
 	// fetch data from server using axios
 	useEffect(() => {
 		phonebookSerice.getAll().then((initialPersons) => {
 			setPersons(initialPersons);
 		});
 	}, []);
+	const [persons, setPersons] = useState([]);
 	const [newName, setNewName] = useState('');
 	const [newNumber, setNewNumber] = useState('');
 	const [filter, setFilter] = useState('');
+	const [message, setMessage] = useState(null);
 
 	const handleNameChange = (e) => {
 		// console.log(e.target.value);
@@ -34,20 +36,24 @@ const App = () => {
 
 	return (
 		<div>
-			<h2>Phonebook</h2>
+			<h1>Phonebook</h1>
+			<Notification message={message} />
+
+			<h2>Apply filters</h2>
 			<Filter onChange={handleFilterChange} />
 
-			<h3>Add a new number</h3>
+			<h2>Add a new number</h2>
 			<PersonForm
 				persons={persons}
 				newName={newName}
 				newNumber={newNumber}
 				setPersons={setPersons}
+				setMessage={setMessage}
 				handleNameChange={handleNameChange}
 				handleNumberChange={handleNumberChange}
 			/>
 
-			<h3>Numbers</h3>
+			<h2>Numbers</h2>
 			<Persons
 				persons={persons}
 				filter={filter}

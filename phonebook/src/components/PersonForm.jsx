@@ -5,6 +5,7 @@ const PersonForm = ({
 	newName,
 	newNumber,
 	setPersons,
+	setMessage,
 	handleNameChange,
 	handleNumberChange,
 }) => {
@@ -17,12 +18,8 @@ const PersonForm = ({
 			return;
 		}
 		// check if person already exists
-		const person = persons.find(
-			(person) => person.name === newName
-		);
-		if (
-			person
-		) {
+		const person = persons.find((person) => person.name === newName);
+		if (person) {
 			// check if the number is the same
 			if (person.number === newNumber) {
 				alert(
@@ -52,13 +49,6 @@ const PersonForm = ({
 				});
 			return;
 		}
-		// check if the number already exists
-		// if (persons.find((person) => person.number == newNumber)) {
-		// 	alert(
-		// 		`${newNumber} is the number of another person in the phonebook`
-		// 	);
-		// 	return;
-		// }
 		const newPerson = {
 			name: newName,
 			number: newNumber,
@@ -68,34 +58,48 @@ const PersonForm = ({
 		phonebookService.add(newPerson).then((newPersonResponse) => {
 			setPersons(persons.concat(newPersonResponse));
 		});
+		// set message
+		setMessage(`Added ${newName}`);
+		// set timeout to clear the message
+		setTimeout(() => {
+			setMessage(null);
+		}, 5000);
 	};
 
 	return (
-		<form
-			name='add-number'
-			onSubmit={addPerson}
-		>
-			<div>
-				name:{' '}
-				<input
-					name='name'
-					onChange={handleNameChange}
-					placeholder='input name here'
-				/>
-			</div>
-			<div>
-				number:{' '}
-				<input
-					name='number'
-					onChange={handleNumberChange}
-					placeholder='input number here'
-				/>
-			</div>
-			<br></br>
-			<div>
-				<button type='submit'>add</button>
-			</div>
-		</form>
+		<form onSubmit={addPerson}>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Name:</td>
+                    <td>
+                        <input
+                            className = 'text-input'
+                            onChange={handleNameChange}
+                            placeholder='Input name here'
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Number:</td>
+                    <td>
+                        <input
+                            className = 'text-input'
+                            onChange={handleNumberChange}
+                            placeholder='Input number here'
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td colSpan='2' style={{textAlign: 'right'}}>
+                        <button type='submit' className='add-btn'>
+                            Add
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
 	);
 };
 
