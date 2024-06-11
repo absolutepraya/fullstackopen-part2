@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const PersonForm = ({
 	persons,
 	newName,
@@ -22,7 +24,12 @@ const PersonForm = ({
 			return;
 		}
 		const newPerson = { name: newName, number: newNumber };
-		setPersons(persons.concat(newPerson));
+		// add new persons to the json server
+		axios
+			.post('http://localhost:3001/persons', newPerson)
+			.then((response) => {
+				setPersons(persons.concat(response.data));
+			});
 	};
 
 	return (
