@@ -37,7 +37,7 @@ const App = () => {
 	return (
 		<div>
 			<h2>Phonebook</h2>
-			<Filter onChange={handleFilterChange} placeholder='filter shown with' />
+			<Filter onChange={handleFilterChange} />
 
 			<h3>Add a new contact</h3>
 			<PersonForm 
@@ -53,6 +53,7 @@ const App = () => {
 			<Persons 
 				persons={persons} 
 				filter={filter} 
+				setPersons={setPersons}
 			/>
 		</div>
 	);

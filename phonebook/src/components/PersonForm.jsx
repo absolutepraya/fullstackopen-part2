@@ -1,4 +1,4 @@
-import axios from 'axios';
+import phonebookService from '../services/phonebookService';
 
 const PersonForm = ({
 	persons,
@@ -25,11 +25,11 @@ const PersonForm = ({
 		}
 		const newPerson = { name: newName, number: newNumber };
 		// add new persons to the json server
-		axios
-			.post('http://localhost:3001/persons', newPerson)
-			.then((response) => {
-				setPersons(persons.concat(response.data));
-			});
+		phonebookService
+			.add(newPerson)
+			.then((newPersonResponse) => {
+				setPersons(persons.concat(newPersonResponse));
+			})
 	};
 
 	return (

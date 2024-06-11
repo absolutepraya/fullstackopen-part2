@@ -1,11 +1,6 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "040-123456",
-      "id": "1"
-    },
-    {
       "name": "Ada Lovelace",
       "number": "39-44-5323523",
       "id": "2"
@@ -21,14 +16,14 @@
       "id": "4"
     },
     {
-      "id": "7e3f",
-      "name": "ada wong",
-      "number": "12121212"
+      "id": "d711",
+      "name": "Ada Wong",
+      "number": "00000000"
     },
     {
-      "id": "910f",
-      "name": "bowser from mario",
-      "number": "9879237423"
+      "id": "f4ab",
+      "name": "Leon Kennedy",
+      "number": "23453456"
     }
   ]
 }
