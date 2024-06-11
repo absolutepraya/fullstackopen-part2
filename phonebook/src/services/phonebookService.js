@@ -13,6 +13,7 @@ const add = newObject => {
     return request.then(response => response.data)
 }
 
+// change the number of the person in the database
 const update = (id, newObject) => {
     const request = axios.put(`${baseUrl}/${id}`, newObject)
     return request.then(response => response.data)
