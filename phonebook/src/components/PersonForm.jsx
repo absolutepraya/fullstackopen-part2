@@ -49,10 +49,12 @@ const PersonForm = ({
 				});
 			return;
 		}
+		// find the highest id
+		const maxId = Math.max(...persons.map((person) => person.id));
 		const newPerson = {
 			name: newName,
 			number: newNumber,
-			id: (persons.length + 1).toString(),
+			id: (maxId + 1).toString(),
 		};
 		// add new persons to the json server
 		phonebookService.add(newPerson).then((newPersonResponse) => {

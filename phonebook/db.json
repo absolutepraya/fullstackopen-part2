@@ -17,18 +17,23 @@
     },
     {
       "id": "4",
-      "name": "Mary Poppendieck",
-      "number": "39-23-6423122"
-    },
-    {
-      "id": "5",
       "name": "Ada Wong",
       "number": "12345678"
     },
     {
-      "id": "6",
+      "id": "5",
       "name": "Leon S Kennedy",
       "number": "23456789"
+    },
+    {
+      "id": "7",
+      "name": "Black Catto",
+      "number": "182736187"
+    },
+    {
+      "id": "8",
+      "name": "Orange Catto",
+      "number": "237846234"
     }
   ]
 }
