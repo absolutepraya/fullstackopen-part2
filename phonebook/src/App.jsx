@@ -18,7 +18,7 @@ const App = () => {
 	const [newName, setNewName] = useState('');
 	const [newNumber, setNewNumber] = useState('');
 	const [filter, setFilter] = useState('');
-	const [message, setMessage] = useState(null);
+	const [message, setMessage] = useState({ text: null, type: null });
 
 	const handleNameChange = (e) => {
 		// console.log(e.target.value);
@@ -37,7 +37,7 @@ const App = () => {
 	return (
 		<div>
 			<h1>Phonebook</h1>
-			<Notification message={message} />
+			<Notification text={message.text} type={message.type} />
 
 			<h2>Apply filters</h2>
 			<Filter onChange={handleFilterChange} />

@@ -31,19 +31,36 @@ const Persons = ({ persons, filter, setPersons, setMessage }) => {
 	// delete person
 	const deletePerson = (id) => {
 		const personToDelete = persons.find((person) => person.id === id);
+		
 		// confirmation to delete person
 		const confirmation = window.confirm(
 			`Delete ${personToDelete.name} from phonebook?`
 		);
+
 		if (confirmation) {
-			phonebookService.remove(id).then(() => {
+			phonebookService
+				.remove(id)
+				.then(() => {
 				setPersons(persons.filter((person) => person.id !== id));
-			});
-			// set message
-			setMessage(`Removed ${personToDelete.name}`);
+				})
+				.catch((error) => { 
+					console.log(error);
+					// set error message
+					setMessage({
+						text: `Information of ${personToDelete.name} has already been removed from the server`,
+						type: 'error',
+					});
+					setTimeout(() => {
+						setMessage({ text: null, type: null });
+					}, 5000);
+					return;
+				});
+
+			// set success message
+			setMessage({ text: `Deleted ${personToDelete.name}`, type: 'success' });
 			// set timeout to clear the message
 			setTimeout(() => {
-				setMessage(null);
+				setMessage({ text: null, type: null });
 			}, 5000);
 		}
 	};

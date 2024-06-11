@@ -12,13 +12,16 @@ const PersonForm = ({
 	// add person to the phonebook
 	const addPerson = (e) => {
 		e.preventDefault();
+
 		// extra: check if name or number is empty
 		if (newName === '' || newNumber === '') {
 			alert('name or number is empty');
 			return;
 		}
+
 		// check if person already exists
 		const person = persons.find((person) => person.name === newName);
+
 		if (person) {
 			// check if the number is the same
 			if (person.number === newNumber) {
@@ -27,6 +30,7 @@ const PersonForm = ({
 				);
 				return;
 			}
+
 			// confirmation
 			const confirmation = window.confirm(
 				`${newName} is already added to the phonebook, replace the old number with a new one?`
@@ -34,6 +38,7 @@ const PersonForm = ({
 			if (!confirmation) {
 				return;
 			}
+
 			// update the number of the person
 			const updatedPerson = { ...person, number: newNumber };
 			phonebookService
@@ -46,9 +51,22 @@ const PersonForm = ({
 								: updatedPersonResponse
 						)
 					);
+				})
+				.catch((error) => {
+					console.log(error);
+					// set error message
+					setMessage({
+						text: `Error updating ${newName} in the server`,
+						type: 'error',
+					});
+					setTimeout(() => {
+						setMessage({ text: null, type: null });
+					}, 5000);
+					return;
 				});
 			return;
 		}
+
 		// find the highest id
 		const maxId = Math.max(...persons.map((person) => person.id));
 		const newPerson = {
@@ -56,15 +74,31 @@ const PersonForm = ({
 			number: newNumber,
 			id: (maxId + 1).toString(),
 		};
+
 		// add new persons to the json server
-		phonebookService.add(newPerson).then((newPersonResponse) => {
+		phonebookService
+			.add(newPerson)
+			.then((newPersonResponse) => {
 			setPersons(persons.concat(newPersonResponse));
-		});
-		// set message
-		setMessage(`Added ${newName}`);
+			})
+			.catch((error) => { 
+				console.log(error);
+				// set error message
+				setMessage({
+					text: `Error adding ${newName} to the server`,
+					type: 'error',
+				});
+				setTimeout(() => {
+					setMessage({ text: null, type: null });
+				}, 5000);
+				return;
+			});
+
+		// set success message
+		setMessage({ text: `Added ${newName}`, type: 'success' });
 		// set timeout to clear the message
 		setTimeout(() => {
-			setMessage(null);
+			setMessage({ text: null, type: null });
 		}, 5000);
 	};
 
