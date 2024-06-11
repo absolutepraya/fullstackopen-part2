@@ -17,11 +17,19 @@ const PersonForm = ({
 			return;
 		}
 		// check if person already exists
+		const person = persons.find(
+			(person) => person.name === newName
+		);
 		if (
-			persons.find(
-				(person) => person.name.toLowerCase() === newName.toLowerCase()
-			) // case insensitive
+			person
 		) {
+			// check if the number is the same
+			if (person.number === newNumber) {
+				alert(
+					`${newName} is already added to the phonebook with the same number`
+				);
+				return;
+			}
 			// confirmation
 			const confirmation = window.confirm(
 				`${newName} is already added to the phonebook, replace the old number with a new one?`
@@ -30,9 +38,6 @@ const PersonForm = ({
 				return;
 			}
 			// update the number of the person
-			const person = persons.find(
-				(person) => person.name.toLowerCase() === newName.toLowerCase()
-			); // case insensitive
 			const updatedPerson = { ...person, number: newNumber };
 			phonebookService
 				.update(person.id, updatedPerson)
@@ -48,12 +53,12 @@ const PersonForm = ({
 			return;
 		}
 		// check if the number already exists
-		if (persons.find((person) => person.number == newNumber)) {
-			alert(
-				`${newNumber} is the number of another person in the phonebook`
-			);
-			return;
-		}
+		// if (persons.find((person) => person.number == newNumber)) {
+		// 	alert(
+		// 		`${newNumber} is the number of another person in the phonebook`
+		// 	);
+		// 	return;
+		// }
 		const newPerson = {
 			name: newName,
 			number: newNumber,

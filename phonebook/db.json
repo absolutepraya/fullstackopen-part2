@@ -22,28 +22,13 @@
     },
     {
       "id": "5",
-      "name": "John Doe",
-      "number": "123-456-789"
+      "name": "Ada Wong",
+      "number": "12345678"
     },
     {
       "id": "6",
-      "name": "Jane Doe",
-      "number": "987-654-321"
-    },
-    {
-      "id": "7",
-      "name": "John Smith",
-      "number": "123-456-789"
-    },
-    {
-      "id": "8",
-      "name": "Ada Wong",
-      "number": "12345"
-    },
-    {
-      "id": "9",
-      "name": "Leon Kennedy",
-      "number": "67890"
+      "name": "Leon S Kennedy",
+      "number": "23456789"
     }
   ]
 }
