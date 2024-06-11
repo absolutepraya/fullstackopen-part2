@@ -58,6 +58,7 @@ const App = () => {
 				persons={persons}
 				filter={filter}
 				setPersons={setPersons}
+				setMessage={setMessage}
 			/>
 		</div>
 	);

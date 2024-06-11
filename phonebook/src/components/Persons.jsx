@@ -1,6 +1,6 @@
 import phonebookService from '../services/phonebookService';
 
-const Persons = ({ persons, filter, setPersons }) => {
+const Persons = ({ persons, filter, setPersons, setMessage }) => {
 	// show person based on filter
 	const showPerson = () => {
 		const filteredPerson = persons.filter((person) =>
@@ -39,6 +39,12 @@ const Persons = ({ persons, filter, setPersons }) => {
 			phonebookService.remove(id).then(() => {
 				setPersons(persons.filter((person) => person.id !== id));
 			});
+			// set message
+			setMessage(`Removed ${personToDelete.name}`);
+			// set timeout to clear the message
+			setTimeout(() => {
+				setMessage(null);
+			}, 5000);
 		}
 	};
 
