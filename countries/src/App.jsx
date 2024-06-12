@@ -9,7 +9,6 @@ const App = () => {
 	const [countriesNames, setCountriesNames] = useState([]);
 	const [search, setSearch] = useState('');
 	const [filteredCountries, setFilteredCountries] = useState([]);
-	// const [showCountry, setShowCountry] = useState(null);
 
 	useEffect(() => {
 		axios
@@ -35,6 +34,10 @@ const App = () => {
 		setSearch(e.target.value);
 	};
 
+	const handleShowClick = (country) => {
+		setSearch(country);
+	}
+
 	if (filteredCountries.length === 1) {
 		const country = countries.find((countryx) => countryx.name.common.toLowerCase() == (filteredCountries[0].toLowerCase()));
 		return (
@@ -54,7 +57,7 @@ const App = () => {
 	} else {
 		return (
 			<div>
-			<h1>Countries</h1>
+			<h1>Countries Data</h1>
 			<div>
 				<p>Find countries:</p>
 				<input
@@ -63,7 +66,10 @@ const App = () => {
 					placeholder='Input country here...'
 				/>
 			</div>
-			<CountryList countries={filteredCountries} />
+			<CountryList 
+				countries={filteredCountries}
+				onClick={handleShowClick} 
+			/>
 			</div>
 		)
 	}

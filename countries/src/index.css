@@ -39,9 +39,21 @@ table {
 	text-align: right;
 }
 
-/* input field styling */
 input {
 	padding: 10px;
 	border-radius: 5px;
 	border: 1px solid #ccc;
+}
+
+.country-list {
+	margin-top: 40px;
+}
+
+.country-list * {
+	text-align: left;
+}
+
+.show-button {
+	margin-right: 15px;
+
 }
