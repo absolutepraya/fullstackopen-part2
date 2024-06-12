@@ -2,80 +2,71 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import CountryInfo from './components/CountryInfo';
+import CountryList from './components/CountryList';
 
 const App = () => {
 	const [countries, setCountries] = useState([]);
-	const [countryInput, setCountryInput] = useState('');
-	const [countryInfo, setCountryInfo] = useState(null);
-
-	const urlAll = 'https://studies.cs.helsinki.fi/restcountries/api/all';
-	const url = `https://studies.cs.helsinki.fi/restcountries/api/name/${countryInput}`;
-
-	useEffect(() => {
-		getCountries();
-	}, [countryInput]);
+	const [countriesNames, setCountriesNames] = useState([]);
+	const [search, setSearch] = useState('');
+	const [filteredCountries, setFilteredCountries] = useState([]);
+	// const [showCountry, setShowCountry] = useState(null);
 
 	useEffect(() => {
-		// if the input is empty, do nothing
-		if (countryInput === '') {
-			setCountryInfo(null);
-			return;
-		}
-
 		axios
-			.get(url)
+			.get('https://studies.cs.helsinki.fi/restcountries/api/all')
 			.then((response) => {
-				setCountryInfo(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-				setCountryInfo(null);
+				setCountries(response.data);
 			});
-	}, [countryInput, url]);
+	}, []);
 
-	// get country choice from input
-	const getCountries = () => {
-		axios.get(urlAll).then((response) => {
-			const countriesName = response.data
-				.filter((country) =>
-					country.name.common
-						.toLowerCase()
-						.includes(countryInput.toLowerCase())
-				)
-				.map((country) => country.name.common);
-			setCountries(countriesName);
-		});
-	};
+	useEffect(() => {
+		const names = countries.map((country) => country.name.common);
+		setCountriesNames(names);
+	}, [countries])
 
-	// show countries list
-	const showCountries = () => {
-		if (countryInput === '') {
-			return null;
+	useEffect(() => {
+		if (search.length !== 0) {
+			const countriesShown = countriesNames.filter((countryName) => countryName.toLowerCase().includes(search.toLowerCase()));
+		setFilteredCountries(countriesShown);
 		}
-		if (countries.length > 10) {
-			return <p>Too many matches, specify another filter</p>;
-		}
-		return countries.map((country) => <p key={country}>{country}</p>);
+	}, [search, countriesNames]);
+
+	const handleSearchChange = (e) => {
+		setSearch(e.target.value);
 	};
 
-	const handleCountryInputChange = (event) => {
-		setCountryInput(event.target.value);
-	};
-
-	return (
-		<div>
+	if (filteredCountries.length === 1) {
+		const country = countries.find((countryx) => countryx.name.common.toLowerCase() == (filteredCountries[0].toLowerCase()));
+		return (
+			<div>
 			<h1>Countries</h1>
 			<div>
 				<p>Find countries:</p>
 				<input
-					value={countryInput}
-					onChange={handleCountryInputChange}
+					value={search}
+					onChange={handleSearchChange}
 					placeholder='Input country here...'
 				/>
 			</div>
-			<CountryInfo countryInfo={countryInfo} showCountries={showCountries()} />
-		</div>
-	);
+			<CountryInfo countryInfo={country} />
+			</div>
+		);
+	} else {
+		return (
+			<div>
+			<h1>Countries</h1>
+			<div>
+				<p>Find countries:</p>
+				<input
+					value={search}
+					onChange={handleSearchChange}
+					placeholder='Input country here...'
+				/>
+			</div>
+			<CountryList countries={filteredCountries} />
+			</div>
+		)
+	}
 };
 
 export default App;

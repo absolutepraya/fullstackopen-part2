@@ -1,5 +1,6 @@
-const CountryInfo = ({ countryInfo, showCountries }) => {
-    return countryInfo ? (
+const CountryInfo = ({ countryInfo }) => {
+    console.log(countryInfo);
+    return ( 
         <div>
             <h2>{countryInfo.name.common}</h2>
             <p className='official-name'>({countryInfo.name.official})</p>
@@ -65,8 +66,6 @@ const CountryInfo = ({ countryInfo, showCountries }) => {
                 style={{ width: 150 }}
             />
         </div>
-    ) : (
-        <div>{showCountries}</div>
     );
 };
 
