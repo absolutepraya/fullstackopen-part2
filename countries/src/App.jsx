@@ -68,7 +68,7 @@ const App = () => {
 			</div>
 			<CountryList 
 				countries={filteredCountries}
-				onClick={handleShowClick} 
+				onClick={handleShowClick}
 			/>
 			</div>
 		)

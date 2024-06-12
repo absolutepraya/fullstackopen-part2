@@ -1,5 +1,22 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const api_key = import.meta.env.VITE_SOME_KEY
+
 const CountryInfo = ({ countryInfo }) => {
-    console.log(countryInfo);
+    const [weather, setWeather] = useState({});
+
+    useEffect(() => {
+        axios
+            .get(`https://api.openweathermap.org/data/2.5/weather?q=${(countryInfo.capital)[0]}&appid=${api_key}&units=metric`)
+            .then((response) => {
+                console.log(response.data);
+                const weatherData = response.data;
+                console.log(weatherData.weather);
+                setWeather(weatherData);
+            });
+    }, [countryInfo.capital]);
+
     return ( 
         <div>
             <h2>{countryInfo.name.common}</h2>
@@ -65,6 +82,25 @@ const CountryInfo = ({ countryInfo }) => {
                 alt={countryInfo.name.common}
                 style={{ width: 150 }}
             />
+            <p>
+                <strong>Weather in {(countryInfo.capital)[0]}</strong>
+            </p>
+            {weather.weather && weather.main && weather.wind && (
+            <>
+                <p className='weathertext-top'>
+                    Today{'\''}s weather is {weather.weather[0].main.toLowerCase()} ({weather.weather[0].description})<br />
+                    with temperature {weather.main.temp}°C ({weather.main.temp_min}°C - {weather.main.temp_max}°C)
+                </p>
+                <img
+                    src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                    alt={weather.weather[0].description}
+                    className='weather-icon'
+                />
+                <p className='weathertext-bottom'>
+                    Wind speed: {weather.wind.speed} m/s
+                </p>
+            </>
+            )}
         </div>
     );
 };

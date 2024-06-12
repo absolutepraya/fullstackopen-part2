@@ -55,5 +55,17 @@ input {
 
 .show-button {
 	margin-right: 15px;
+}
 
+.weather-icon {
+	width: 100px;
+	margin: 0px;
+}
+
+.weathertext-top {
+	margin-bottom: 0;
+}
+
+.weathertext-bottom {
+	margin-top: 0;
 }
