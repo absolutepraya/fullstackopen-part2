@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/persons'
+const baseUrl = 'https://fullstackopen-part3-eiry.onrender.com/api/persons'
 
 // get all persons from the database
 const getAll = () => {
