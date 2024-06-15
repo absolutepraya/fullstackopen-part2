@@ -36,7 +36,14 @@ const App = () => {
 
 	return (
 		<div>
-			<h1>Phonebook</h1>
+			<div className='container'>
+				<div className='title'>
+					<h1>Phonebook</h1>
+				</div>
+				<div className='title-bg'>
+					<h1>Phonebook</h1>
+				</div>
+			</div>
 			<Notification text={message.text} type={message.type} />
 
 			<h2>Apply filters</h2>
